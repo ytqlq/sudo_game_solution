@@ -19,11 +19,16 @@ def open_xls_as_xlsx(xls_path, xlsx_path):
         index += 1
         
     book_new = openpyxl.Workbook()
-    sheet_new = book_new.create_chartsheet('sheet1',0)
+    book_new.create_sheet('sheet1',0)
+    sheet_new = book_new.get_sheet_by_name('sheet1')
+
+    
+    # print(help(sheet_new))
+    # print(dir(sheet_new))
     
     for row in range(0,nrows):
         for col in range(0,ncols):
-            sheet_new.cell(row=row+1,col=col+1).value = sheet.cell_value(row,col)
+            sheet_new.cell(row=row+1,column=col+1).value = sheet.cell_value(row,col)
     book_new.save(xlsx_path)
 
 def processexcel(f,quiz):
@@ -42,6 +47,10 @@ def processexcel(f,quiz):
 
 def getquizfromexcel(quiz):
     path = r"./"#必须cd到project文件夹内
+    for f1 in os.listdir(path):
+        if f1.endswith('.xls'):
+            open_xls_as_xlsx(f1,'./source.xlsx')
+
     for f in os.listdir(path):
         if f.endswith('.xlsx') :
             # print(f)
