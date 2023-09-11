@@ -20,7 +20,7 @@ def open_xls_as_xlsx(xls_path, xlsx_path):
         
     book_new = openpyxl.Workbook()
     book_new.create_sheet('sheet1',0)
-    sheet_new = book_new.get_sheet_by_name('sheet1')
+    sheet_new = book_new['sheet1']
 
     
     # print(help(sheet_new))
@@ -39,14 +39,14 @@ def processexcel(f,quiz):
         s = []
         for j in i:
             v = j.value
-            if v == '':
+            if v == '' or v is None:
                 v = '0'
             s.append(int(v))
         quiz.append(s)
  
 
 def getquizfromexcel(quiz):
-    path = r"./"#必须cd到project文件夹内
+    path = r"./"#必须cd到本文件同一文件夹内
     for f1 in os.listdir(path):
         if f1.endswith('.xls'):
             open_xls_as_xlsx(f1,'./source.xlsx')
@@ -64,3 +64,5 @@ def getquizfromexcel(quiz):
 if __name__ == '__main__':
     quiz = []
     getquizfromexcel(quiz)
+    for item in quiz:
+        print(item)

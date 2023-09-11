@@ -5,6 +5,8 @@
 from sudosettings import LENGTH
 from sudopreprocess import preprocess
 from sudoexcelinput import getquizfromexcel
+from tkinter import *
+import tkinter_performance as tp
 
 def showQuiz():
     for item in quiz:
@@ -89,9 +91,9 @@ if __name__ == '__main__':
     # inputquiz(quiz) 
     
     getquizfromexcel(quiz)# 从excel表格中导入
-      
+    root = Tk()
     # 提前处理
-    
+    tp.gui_show(quiz,root)
     preprocess(quiz)
     # 2.求解过程
 
@@ -101,4 +103,7 @@ if __name__ == '__main__':
 
     trueNum(starttuple)
     # 3.输出结果
+    tp.gui_show(quiz,root)
     showQuiz()
+    root.mainloop()
+    
