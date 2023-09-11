@@ -91,9 +91,10 @@ if __name__ == '__main__':
     # inputquiz(quiz) 
     
     getquizfromexcel(quiz)# 从excel表格中导入
+    # pre_solve_quiz = quiz[:]
     root = Tk()
     # 提前处理
-    tp.gui_show(quiz,root)
+    # tp.gui_show(pre_solve_quiz,root)
     preprocess(quiz)
     # 2.求解过程
 

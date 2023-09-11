@@ -46,17 +46,29 @@ def processexcel(f,quiz):
  
 
 def getquizfromexcel(quiz):
-    path = r"./"#必须cd到本文件同一文件夹内
-    for f1 in os.listdir(path):
+    current_file_path = os.path.dirname(__file__)
+    # print(current_file_path)
+    # # path = r"./"#必须cd到本文件同一文件夹内
+    
+    # print(f_path)
+    
+    for f1 in os.listdir(current_file_path):
+        # print(f1)
         if f1.endswith('.xls'):
-            open_xls_as_xlsx(f1,'./source.xlsx')
-
-    for f in os.listdir(path):
-        if f.endswith('.xlsx') :
-            # print(f)
-            # 处理表格，输出quiz数组
-            processexcel(f,quiz)
+            # print(f_path)
+            f1 = os.path.join(current_file_path,f1)
+            f_path = os.path.join(current_file_path,'source.xlsx')            
+            open_xls_as_xlsx(f1,f_path)
+            processexcel(f_path,quiz)
             break
+            
+
+    # for f in os.listdir(path):
+    #     if f.endswith('.xlsx') :
+    #         # print(f)
+    #         # 处理表格，输出quiz数组
+    #         processexcel(f,quiz)
+    #         break
     else:
         print('No such file.')
     
