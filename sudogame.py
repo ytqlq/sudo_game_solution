@@ -6,11 +6,26 @@ from sudopreprocess import preprocess
 sc_width = 800
 sc_height = 600
 b_width = 60
+fontsize = 40
+
+class Shuzi():
+    def __init__(self,num) -> None:
+        self.c_font = pygame.font.SysFont("Arial",fontsize)
+        self.num = num
+        
+    def writeshuzi(self):
+        return self.c_font.render(str(self.num),True,'red')
+    
+
 
 def getquiz():
     quiz = []
     ss.inputquiz(quiz)
     return quiz
+
+def pygameshowquiz(quiz,screen:pygame.Rect):
+    print(quiz)
+    ...
 
 def solvesodu(quiz):
     preprocess(quiz)
@@ -21,7 +36,8 @@ def solvesodu(quiz):
     ss.trueNum(starttuple,quiz)
     # 3.输出结果
     
-    ss.showQuiz(quiz)
+    # ss.showQuiz(quiz)
+    
 
 
 
@@ -45,7 +61,7 @@ def main():
             line_w = 1
         pygame.draw.line(screen, 'green', (startpoint[0]+i*b_width, startpoint[1]), (startpoint[0]+i*b_width, startpoint[1]+9*b_width),width=line_w)
         pygame.draw.line(screen, 'green', (startpoint[0], startpoint[1]+b_width*i), (startpoint[0]+ 9*b_width, startpoint[1]+b_width*i),width=line_w)
-    
+    pygameshowquiz(quiz,screen)
     
 
     while True:
