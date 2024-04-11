@@ -7,14 +7,21 @@ sc_width = 800
 sc_height = 600
 b_width = 60
 fontsize = 40
+font_color = 'red'
 
 class Shuzi():
-    def __init__(self,num) -> None:
+    def __init__(self,num,screen,fontrect) -> None:
         self.c_font = pygame.font.SysFont("Arial",fontsize)
-        self.num = num
         
+        self.num = num
+        self.screen = screen
+        self.fontrect = fontrect
+        self.fontsurface = self.c_font.render(str(self.num),True,font_color)
     def writeshuzi(self):
-        return self.c_font.render(str(self.num),True,'red')
+        
+        
+        # print(fontsurface.get_size())
+        self.screen.blit(self.fontsurface, self.fontrect)
     
 
 
@@ -23,9 +30,19 @@ def getquiz():
     ss.inputquiz(quiz)
     return quiz
 
-def pygameshowquiz(quiz,screen:pygame.Rect):
-    print(quiz)
-    ...
+def pygameshowquiz(quiz,screen:pygame.Rect,sp):
+    
+    # print(quiz)
+    for i in range(9):
+        for j in range(9):
+            num = quiz[i][j]
+            fontrect = pygame.Rect((sp[0]+j*b_width, sp[1]+i*b_width),(b_width,b_width))            
+            sz = Shuzi(num,screen,fontrect)
+            fw, fh = sz.fontsurface.get_size()
+            fontrect.move_ip((b_width-fw)//2, (b_width-fh)//2)
+            sz.writeshuzi()
+
+            
 
 def solvesodu(quiz):
     preprocess(quiz)
@@ -51,7 +68,7 @@ def main():
     pygame.display.set_caption('Sudo Game')
 
     startpoint = ((sc_width-9*b_width)//2, (sc_height-9*b_width)//2)
-    
+    # screen.blit()
     
 
     for i in range(10):
@@ -61,7 +78,7 @@ def main():
             line_w = 1
         pygame.draw.line(screen, 'green', (startpoint[0]+i*b_width, startpoint[1]), (startpoint[0]+i*b_width, startpoint[1]+9*b_width),width=line_w)
         pygame.draw.line(screen, 'green', (startpoint[0], startpoint[1]+b_width*i), (startpoint[0]+ 9*b_width, startpoint[1]+b_width*i),width=line_w)
-    pygameshowquiz(quiz,screen)
+    pygameshowquiz(quiz,screen,startpoint)
     
 
     while True:
