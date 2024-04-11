@@ -1,10 +1,35 @@
 import pygame
+import sudosolution as ss
+from sudopreprocess import preprocess
+
 
 sc_width = 800
 sc_height = 600
 b_width = 60
 
+def getquiz():
+    quiz = []
+    ss.inputquiz(quiz)
+    return quiz
+
+def solvesodu(quiz):
+    preprocess(quiz)
+    starttuple = (0,0)
+    if quiz[0][0] !=0:
+        starttuple = ss.findnextblanktuple((0,0),quiz)
+
+    ss.trueNum(starttuple,quiz)
+    # 3.输出结果
+    
+    ss.showQuiz(quiz)
+
+
+
+
 def main():
+    quiz = getquiz()
+    solvesodu(quiz)
+
     pygame.init()
     screen = pygame.display.set_mode((sc_width,sc_height))
     pygame.display.set_caption('Sudo Game')

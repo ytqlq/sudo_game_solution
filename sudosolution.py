@@ -8,11 +8,11 @@ from sudoexcelinput import getquizfromexcel
 from tkinter import *
 import tkinter_performance as tp
 
-def showQuiz():
+def showQuiz(quiz):
     for item in quiz:
         print(item)
 
-def checkrcb(num, tuple):
+def checkrcb(num, tuple,quiz):
     # 测试num 在序号为tuple的位置在横竖九宫里是不是唯一值。
     row, col = tuple
     rowL = []
@@ -35,7 +35,7 @@ def checkrcb(num, tuple):
             blockL.append(quiz[i][j])       
     return num not in rowL and num not in colL and num not in blockL
 
-def findnextblanktuple(tuple):
+def findnextblanktuple(tuple,quiz):
     row,col = tuple
     nextrow = row
     nextcol = col+1
@@ -54,17 +54,17 @@ def findnextblanktuple(tuple):
         else:
             return nextrow,nextcol
       
-def trueNum(tuple):
+def trueNum(tuple,quiz):
     row ,col  = tuple
     for n in range(1,LENGTH+1):
-        if checkrcb(n,tuple): 
+        if checkrcb(n,tuple,quiz): 
             quiz[row][col] = n
-            nexttuple = findnextblanktuple(tuple)
+            nexttuple = findnextblanktuple(tuple,quiz)
             if nexttuple is None:
                 # quiz[row][col] = n
                 return True
             else:
-                if trueNum(nexttuple):
+                if trueNum(nexttuple,quiz):
                     # quiz[row][col] = n
                     return True                  
     quiz[row][col] = 0
@@ -100,7 +100,7 @@ if __name__ == '__main__':
 
     starttuple = (0,0)
     if quiz[0][0] !=0:
-        starttuple = findnextblanktuple((0,0))
+        starttuple = findnextblanktuple((0,0),quiz)
 
     trueNum(starttuple)
     # 3.输出结果
