@@ -55,7 +55,10 @@ def findnextblanktuple(tuple,quiz):
             return nextrow,nextcol
       
 def trueNum(tuple,quiz):
-    row ,col  = tuple
+    if tuple is not None:
+        row ,col  = tuple
+    else:
+        return True
     for n in range(1,LENGTH+1):
         if checkrcb(n,tuple,quiz): 
             quiz[row][col] = n
@@ -102,7 +105,7 @@ if __name__ == '__main__':
     if quiz[0][0] !=0:
         starttuple = findnextblanktuple((0,0),quiz)
 
-    trueNum(starttuple)
+    trueNum(starttuple,quiz)
     # 3.输出结果
     tp.gui_show(quiz,root)
     showQuiz()
